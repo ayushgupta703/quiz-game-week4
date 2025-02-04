@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const port = process.env.PORT || 3000; // Use environment port or 3000
+const port = process.env.PORT || 3000;
 
 const questionsFilePath = path.join(__dirname, 'questions.json');
 
@@ -11,16 +11,12 @@ const server = http.createServer((req, res) => {
 
     if (method === 'GET') {
         if (url === '/') {
-            // Serve index.html
             serveStaticFile(res, 'public/index.html', 'text/html');
         } else if (url === '/style.css') {
-            // Serve style.css
             serveStaticFile(res, 'public/style.css', 'text/css');
         } else if (url === '/script.js') {
-            // Serve script.js
             serveStaticFile(res, 'public/script.js', 'text/javascript');
         } else if (url === '/questions') {
-            // Serve questions.json
             fs.readFile(questionsFilePath, 'utf8', (err, data) => {
                 if (err) {
                     console.error('Error reading questions.json:', err);
@@ -32,12 +28,10 @@ const server = http.createServer((req, res) => {
                 }
             });
         } else {
-            // Handle 404 for other requests
             res.writeHead(404, { 'Content-Type': 'text/plain' });
             res.end('Not Found');
         }
     } else {
-        // Handle other HTTP methods (e.g., POST, PUT) if needed
         res.writeHead(405, { 'Content-Type': 'text/plain' });
         res.end('Method Not Allowed');
     }

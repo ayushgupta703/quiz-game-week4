@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
     const questionContainer = document.getElementById('question');
     const optionsContainer = document.getElementById('options');
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     let questions = [];
 
-    fetch('/questions') // Fetch questions from the server
+    fetch('/questions')
         .then(response => response.json())
         .then(data => {
             questions = data;
@@ -21,13 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentQuestion = questions[currentQuestionIndex];
         questionContainer.textContent = currentQuestion.question;
 
-        optionsContainer.innerHTML = ''; // Clear previous options
+        optionsContainer.innerHTML = '';
         currentQuestion.options.forEach(option => {
             const optionDiv = document.createElement('div');
             optionDiv.classList.add('option');
             optionDiv.textContent = option;
             optionDiv.addEventListener('click', () => {
-                // Remove selected class from all and add to current
                 optionsContainer.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
                 optionDiv.classList.add('selected');
             });
